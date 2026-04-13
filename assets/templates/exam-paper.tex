@@ -1,0 +1,168 @@
+\documentclass[12pt]{ctexart}
+
+\newif\ifusebigeightk
+\usebigeightkfalse
+
+\ifusebigeightk
+  \usepackage[paperwidth=390mm,paperheight=270mm,top=1.35cm,bottom=1.25cm,left=1.9cm,right=1.6cm]{geometry}
+\else
+  \usepackage[paperwidth=420mm,paperheight=297mm,top=1.5cm,bottom=1.4cm,left=2.0cm,right=1.8cm]{geometry}
+\fi
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,booktabs,multirow}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.14em}
+\setlength{\headheight}{15pt}
+\setlist[enumerate]{itemsep=0.05em, topsep=0.05em}
+
+\newcommand{\schoolname}{学校名称}
+\newcommand{\examyear}{2026}
+\newcommand{\examtitle}{考试项目名称}
+\newcommand{\papersubtitle}{数学试卷（样卷）}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\schoolname}
+\fancyhead[R]{数学试卷}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\newcommand{\bindingline}{
+  \begin{tikzpicture}[remember picture,overlay]
+    \draw[densely dotted,line width=0.85pt]
+      ([xshift=13.5mm,yshift=-18mm]current page.north west) --
+      ([xshift=13.5mm,yshift=18mm]current page.south west);
+    \node[rotate=90,anchor=south,font=\small]
+      at ([xshift=18.5mm]current page.west) {装订线};
+  \end{tikzpicture}
+}
+\AddToHook{shipout/background}{\bindingline}
+
+\newcommand{\papertitleblock}{
+  \begin{center}
+    {\fontsize{18.5pt}{23pt}\selectfont\bfseries \schoolname\ \examyear\ 年\examtitle\par}
+    \vspace{0.5em}
+    {\fontsize{19pt}{25pt}\selectfont\bfseries \papersubtitle\par}
+  \end{center}
+}
+
+\newcommand{\scoretable}{
+  \renewcommand{\arraystretch}{1.45}
+  \begin{center}
+    \begin{tabularx}{0.86\textwidth}{|>{\centering\arraybackslash}m{1.55cm}|*{4}{>{\centering\arraybackslash}X|}}
+      \hline
+      题号 & 一 & 二 & 三 & 总分 \\
+      \hline
+      得分 &  &  &  &  \\
+      \hline
+    \end{tabularx}
+  \end{center}
+  \renewcommand{\arraystretch}{1}
+}
+
+\newcommand{\sectiontitle}[1]{
+  \vspace{0.18em}
+  {\large\bfseries #1\par}
+  \vspace{0.04em}
+}
+
+\newcommand{\blankline}[1][6cm]{\underline{\makebox[#1][s]{\hfill}}}
+
+\newenvironment{choicequestions}{
+  \begin{enumerate}[label=\arabic*., leftmargin=1.8em, itemsep=0.12em, topsep=0.08em]
+}{
+  \end{enumerate}
+}
+
+\newcommand{\choiceoptions}[4]{
+  \par\noindent\vspace{0.02em}
+  \begin{tabular*}{0.95\textwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{0.21\textwidth}>{\raggedright\arraybackslash}p{0.21\textwidth}>{\raggedright\arraybackslash}p{0.21\textwidth}>{\raggedright\arraybackslash}p{0.21\textwidth}}
+    A.\ #1 & B.\ #2 & C.\ #3 & D.\ #4
+  \end{tabular*}
+  \par\vspace{0.16em}
+}
+
+\newcommand{\choiceoptionslong}[4]{
+  \par\noindent\vspace{0.02em}
+  \begin{tabular*}{0.95\textwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{0.445\textwidth}>{\raggedright\arraybackslash}p{0.445\textwidth}}
+    A.\ #1 & B.\ #2 \\[0.32em]
+    C.\ #3 & D.\ #4
+  \end{tabular*}
+  \par\vspace{0.16em}
+}
+
+\newenvironment{fillquestions}{
+  \begin{enumerate}[label=\arabic*., leftmargin=1.8em]
+}{
+  \end{enumerate}
+}
+
+\newenvironment{solutionquestions}{
+  \begin{enumerate}[label=\arabic*., leftmargin=1.8em]
+}{
+  \end{enumerate}
+}
+
+\newcommand{\spreadpair}[2]{%
+  \noindent
+  \begin{minipage}[t][0.945\textheight][t]{0.486\textwidth}
+    #1
+  \end{minipage}\hfill
+  \begin{minipage}[t][0.945\textheight][t]{0.486\textwidth}
+    #2
+  \end{minipage}%
+}
+
+\begin{document}
+
+% 使用方式：
+% 1. 每个横版页面优先用一个 \spreadpair{左半页}{右半页}
+% 2. 先按“题型块”排，再做局部微调
+% 3. 题量增加时，优先增加新半页，不优先压字号
+
+\spreadpair{
+  \papertitleblock
+  \scoretable
+
+  \sectiontitle{一、选择题：本大题共 8 小题，每小题 8 分，共 64 分。}
+
+  \begin{choicequestions}
+  \item 在这里粘贴第 1 题题干。
+  \choiceoptions{选项 A}{选项 B}{选项 C}{选项 D}
+
+  \item 在这里粘贴第 2 题题干。
+  \choiceoptions{选项 A}{选项 B}{选项 C}{选项 D}
+  \end{choicequestions}
+}{
+  \sectiontitle{二、填空题：本大题共 4 小题，每小题 8 分，共 32 分。}
+
+  \begin{fillquestions}
+  \setcounter{enumi}{8}
+  \item 在这里粘贴填空题，并保留横线 \blankline[5cm]。
+  \end{fillquestions}
+
+  \sectiontitle{三、解答题：本大题共 3 小题，每题 18 分，共 54 分。}
+
+  \begin{solutionquestions}
+  \setcounter{enumi}{12}
+  \item 在这里粘贴解答题。
+  \end{solutionquestions}
+}
+
+% 如果需要继续排下一页，请复制下面结构：
+%
+% \clearpage
+% \spreadpair{
+%   左半页内容
+% }{
+%   右半页内容
+% }
+
+\end{document}

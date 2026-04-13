@@ -1,0 +1,7 @@
+interface:
+  display_name: "XSLS 试卷技能"
+  short_description: "按 A3/大8开横版与装订线标准，把样卷转成可编译的 LaTeX 试卷项目"
+  default_prompt: "使用 $xsls-exam-skill 把我上传的样卷转成符合 A3/大8开横版标准、带装订线的 LaTeX 试卷项目并编译成 PDF。"
+
+policy:
+  allow_implicit_invocation: true
